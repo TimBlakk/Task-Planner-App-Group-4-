@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -47,4 +47,62 @@
         crossorigin="anonymous"></script>
 </body>
 
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Planner</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center text-white mb-4">Task Planner - Team 4</h1>
+    
+    <div class="alert alert-danger d-none" id="errorAlert" role="alert">
+      All fields are required!
+    </div>
+    
+    <form id="taskForm" class="p-4 bg-light rounded">
+      <div class="form-group">
+        <label for="taskName">Name</label>
+        <input type="text" class="form-control" id="taskName" required>
+      </div>
+      <div class="form-group">
+        <label for="taskDescription">Description</label>
+        <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="taskAssignedTo">Assigned To</label>
+        <input type="text" class="form-control" id="taskAssignedTo" required>
+      </div>
+      <div class="form-group">
+        <label for="taskDueDate">Due Date</label>
+        <input type="date" class="form-control" id="taskDueDate" required>
+      </div>
+      <div class="form-group">
+        <label for="taskStatus">Status</label>
+        <select class="form-control" id="taskStatus" required>
+          <option value="">Select Status</option>
+          <option value="To Do">To Do</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+
+    <ul class="list-group mt-3" id="taskList">
+      <!-- Task cards will be appended here -->
+    </ul>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="index.js"></script>
+</body>
 </html>
