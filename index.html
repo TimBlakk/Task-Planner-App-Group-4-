@@ -41,8 +41,19 @@
           <option value="Done">Done</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">Add Task</button>
+      <button type="submit" class="btn btn-primary" id="addTask">Add Task</button>
+      <button type="button" class="btn btn-primary d-none" id="saveTask">Save Task</button>
     </form>
+
+    <div class="form-group mt-4">
+      <label for="filterStatus">Filter by Status</label>
+      <select class="form-control" id="filterStatus">
+        <option value="">All</option>
+        <option value="To Do">To Do</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
+    </div>
 
     <ul class="list-group mt-3" id="taskList">
       <!-- Task cards will be appended here -->
@@ -52,6 +63,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="index.js"></script>
+  <script src="js/taskManager.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>
