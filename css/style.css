@@ -1,0 +1,55 @@
+body {
+    background-color: #044652;
+  }
+  
+  h1 {
+    background-color: #5a2502;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  #taskForm {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .list-group-item {
+    background-color: #f8f9fa;
+    border: none;
+  }
+  
+  .card {
+    border: 1px solid #007bff;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  .card-title {
+    color: #007bff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .alert {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    text-align: center;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
