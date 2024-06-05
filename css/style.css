@@ -1,58 +1,85 @@
 body {
-    background-color: #12c0df;
-  }
-  
-  h1 {
-    background-color: #291ba8;
-    padding: 15px;
-    border-radius: 5px;
-  }
-  
-  #taskForm {
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .list-group-item {
-    background-color: #f8f9fa;
-    border: none;
-  }
-  
-  .card {
-    border: 1px solid #007bff;
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.02);
-  }
-  
-  .card-title {
-    color: #007bff;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border: none;
-    transition: background-color 0.2s;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  .alert {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    text-align: center;
-  }
-  
-  .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  min-height: 100vh;
+}
 
-  .container1 {
-    padding: 20px;
-  }
+h1 {
+  background-color: #291ba8;
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+}
+
+#taskForm {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+  background-color: #f8f9fa;
+  border: none;
+}
+
+.card {
+  border: 1px solid #007bff;
+  transition: transform 0.2s;
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  color: #007bff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.alert {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  text-align: center;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+h2.text-primary {
+  background-color: #d1ecf1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h2.text-warning {
+  background-color: #fff3cd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h2.text-success {
+  background-color: #d4edda;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.list-group {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 10px;
+}

@@ -8,57 +8,112 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container1 mt-5 class="card style="width: 20rem;">
-    <h1 class="text-center text-white mb-4">Task Planner - Team 4</h1>
-    
-    <div class="alert alert-danger d-none" id="errorAlert" role="alert">
-      All fields are required!
+  <!-- Welcome Page -->
+  <div class="welcome-page">
+    <h1 class="text-center">Welcome to Your Planner</h1>
+    <div class="text-center">
+      <label for="userSelect">Select User:</label>
+      <select id="userSelect">
+        <option value="Tim">Tim</option>
+        <option value="Joyce">Joyce</option>
+        <option value="Tommy">Tommy</option>
+        <option value="Will">Will</option>
+        <option value="Jane">Jane</option>
+      </select>
+      <button id="goToPlanner" class="btn btn-primary">Go to Planner</button>
     </div>
-    
-    <form id="taskForm" class="p-4 bg-light rounded">
-      <div class="form-group">
-        <label for="taskName">Name</label>
-        <input type="text" class="form-control" id="taskName" required>
+  </div>
+
+  <!-- Task Planner Page -->
+  <div class="task-page d-none">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Task Planner</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#" data-user="Tim">Tim</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-user="Joyce">Joyce</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-user="Tommy">Tommy</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-user="Will">Will</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-user="Jane">Jane</a></li>
+        </ul>
       </div>
-      <div class="form-group">
-        <label for="taskDescription">Description</label>
-        <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
+    </nav>
+
+    <div class="container mt-5">
+      <h1 class="text-center text-white mb-4">Task Planner</h1>
+      
+      <div class="alert alert-danger d-none" id="errorAlert" role="alert">
+        All fields are required!
       </div>
-      <div class="form-group">
-        <label for="taskAssignedTo">Assigned To</label>
-        <input type="text" class="form-control" id="taskAssignedTo" required>
+
+      <div class="row">
+        <div class="col-md-4">
+          <form id="taskForm" class="p-4 bg-light rounded">
+            <div class="form-group">
+              <label for="taskName">Name</label>
+              <input type="text" class="form-control" id="taskName" required>
+            </div>
+            <div class="form-group">
+              <label for="taskDescription">Description</label>
+              <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="taskAssignedTo">Assigned To</label>
+              <input type="text" class="form-control" id="taskAssignedTo" required>
+            </div>
+            <div class="form-group">
+              <label for="taskDueDate">Due Date</label>
+              <input type="date" class="form-control" id="taskDueDate" required>
+            </div>
+            <div class="form-group">
+              <label for="taskStatus">Status</label>
+              <select class="form-control" id="taskStatus" required>
+                <option value="">Select Status</option>
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="addTask">Add Task</button>
+            <button type="button" class="btn btn-primary d-none" id="saveTask">Save Task</button>
+          </form>
+        </div>
+
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-4">
+              <h2 class="text-center text-primary">To Do</h2>
+              <ul class="list-group" id="todoTasks">
+                <!-- To Do tasks will be appended here -->
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h2 class="text-center text-warning">In Progress</h2>
+              <ul class="list-group" id="inProgressTasks">
+                <!-- In Progress tasks will be appended here -->
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h2 class="text-center text-success">Done</h2>
+              <ul class="list-group" id="doneTasks">
+                <!-- Done tasks will be appended here -->
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="taskDueDate">Due Date</label>
-        <input type="date" class="form-control" id="taskDueDate" required>
-      </div>
-      <div class="form-group">
-        <label for="taskStatus">Status</label>
-        <select class="form-control" id="taskStatus" required>
-          <option value="">Select Status</option>
+
+      <div class="form-group mt-4">
+        <label for="filterStatus">Filter by Status</label>
+        <select class="form-control" id="filterStatus">
+          <option value="">All</option>
           <option value="To Do">To Do</option>
           <option value="In Progress">In Progress</option>
           <option value="Done">Done</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary" id="addTask">Add Task</button>
-      <button type="button" class="btn btn-primary d-none" id="saveTask">Save Task</button>
-    </form>
 
-    <div class="form-group mt-4">
-      <label for="filterStatus">Filter by Status</label>
-      <select class="form-control" id="filterStatus">
-        <option value="">All</option>
-        <option value="To Do">To Do</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Done">Done</option>
-      </select>
     </div>
-<div class="cardPos">
-    <ul class="list-group mt-3" id="taskList">
-      <!-- Task cards will be appended here -->
-    </ul>
-  </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
