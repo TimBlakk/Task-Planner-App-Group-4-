@@ -1,9 +1,9 @@
 body {
-    background-color: #044652;
+    background-color: #12c0df;
   }
   
   h1 {
-    background-color: #5a2502;
+    background-color: #291ba8;
     padding: 15px;
     border-radius: 5px;
   }
@@ -52,4 +52,7 @@ body {
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
-  
+
+  .container1 {
+    padding: 20px;
+  }
