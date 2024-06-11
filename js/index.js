@@ -110,6 +110,10 @@ function editTask(task) {
     document.getElementById('addTask').classList.add('d-none');
     document.getElementById('saveTask').classList.remove('d-none');
 
+    // Remove existing event listener to prevent multiple bindings
+    const saveButton = document.getElementById('saveTask');
+    saveButton.replaceWith(saveButton.cloneNode(true));
+    
     document.getElementById('saveTask').addEventListener('click', function() {
         taskManager.updateTask(currentUser, task.id, {
             name: document.querySelector('#taskName').value,
