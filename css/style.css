@@ -54,6 +54,11 @@ h1 {
   margin-top: 70px;
 }
 
+.Logo {
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+  }
 
 .list-group-item {
   background-color: #f8f9fa;
@@ -98,6 +103,10 @@ h1 {
 
 .navbar {
   margin-bottom: 20px;
+}
+
+.navbar-collapse {
+  margin-bottom: -22px;
 }
 
 h2.text-primary {
@@ -266,6 +275,3 @@ h2.text-success {
   /* hover styles for the button */
   background-color: #0069d9;
 }
-
-  
-  

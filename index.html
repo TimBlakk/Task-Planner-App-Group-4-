@@ -10,7 +10,7 @@
 <body>
 
   <div id="current-page" class="welcome-page">
-    <h1 class="text-center">Welcome to Your Task Planner</h1>
+    <h1 class="text-center text-white mb-4">Welcome to Your Task Planner</h1>
     <div class="text-center">
       <label for="userSelect" class="Select"><h4>Select User:</h4></label>
       <select id="userSelect">
@@ -20,27 +20,34 @@
         <option value="Will">William</option>
         <option value="Jane">Eunice</option>
       </select>
-      <button id="goToPlanner" class="btn btn-primary">Go to Planner</button>
+      <button id="goToPlanner" class="btn btn-primary mt-2">Go to Planner</button>
     </div>
-    <h2 class="Take">Take control, make it happen!</h2>
+    <h2 class="Take text-white">Take control, make it happen!</h2>
   </div>
 
   <div class="task-page d-none">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Task Planner</a>
-      
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#" data-user="Tim">Tim</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" data-user="Joyce">Joyce</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" data-user="Tommy">Tommy</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" data-user="William">William</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" data-user="Eunice">Eunice</a></li>
-        </ul>
+      <a href="https://todoist.com/home" target="_blank"><img src="/css/taskpage.jpg" alt="image alt text" class="Logo"></a>
+      <a class="navbar-brand" href="#">Home</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="form-inline my-2 my-lg-0 ml-auto">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search Tasks" aria-label="Search" id="searchTasks">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+        </form>
+        <div class="form-group ml-3">
+          <label for="filterStatus" class="mr-2">Filter by Status</label>
+          <select class="form-control" id="filterStatus">
+            <option value="">All</option>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
       </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container mt-5 container1">
       <h1 class="text-center text-white mb-4">Task Planner</h1>
       
       <div class="alert alert-danger d-none" id="errorAlert" role="alert">
@@ -49,9 +56,9 @@
 
       <div class="row">
         <div class="col-md-4">
-          <form id="taskForm" class="p-4 bg-light rounded">
+          <form id="taskForm" class="p-4 rounded" style="background-color: #ffffff;">
             <div class="form-group">
-              <label for="taskName">Name</label>
+              <label for="taskName">Task ID / Name </label>
               <input type="text" class="form-control" id="taskName" required>
             </div>
             <div class="form-group">
@@ -60,8 +67,11 @@
             </div>
             <div class="form-group">
               <label for="taskAssignedTo">Assigned To</label>
-              <input type="text" class="form-control" id="taskAssignedTo" required>
+              <select class="form-control" id="taskAssignedTo" required>
+                <!-- Options dynamically populated from the JavaScript -->
+              </select>
             </div>
+           
             <div class="form-group">
               <label for="taskDueDate">Due Date</label>
               <input type="date" class="form-control" id="taskDueDate" required>
@@ -102,17 +112,6 @@
           </div>
         </div>
       </div>
-
-      <div class="form-group mt-4">
-        <label for="filterStatus">Filter by Status</label>
-        <select class="form-control" id="filterStatus">
-          <option value="">All</option>
-          <option value="To Do">To Do</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Done">Done</option>
-        </select>
-      </div>
-
     </div>
   </div>
 
