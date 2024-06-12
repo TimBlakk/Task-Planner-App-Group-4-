@@ -87,19 +87,19 @@
         <div class="col-md-8">
           <div class="row">
             <div class="col-md-4">
-              <h2 class="text-center text-primary">To Do</h2>
+              <h2 class="text-center text-primary" style="border-radius: 15px;">To Do</h2>
               <ul class="list-group" id="todoTasks">
                 
               </ul>
             </div>
             <div class="col-md-4">
-              <h2 class="text-center text-warning">In Progress</h2>
+              <h2 class="text-center text-warning" style="border-radius: 15px;">In Progress</h2>
               <ul class="list-group" id="inProgressTasks">
                 
               </ul>
             </div>
             <div class="col-md-4">
-              <h2 class="text-center text-success">Done</h2>
+              <h2 class="text-center text-success" style="border-radius: 15px;">Done</h2>
               <ul class="list-group" id="doneTasks"> 
               </ul>
             </div>
@@ -108,7 +108,7 @@
       </div>
 
       <div class="form-group mt-4">
-        <label for="filterStatus">Filter by Status</label>
+        <label for="filterStatus" style="color: rgb(84, 84, 253);">Filter by Status</label>
         <select class="form-control" id="filterStatus">
           <option value="">All</option>
           <option value="To Do">To Do</option>
@@ -118,6 +118,28 @@
       </div>
 
     </div>
+
+
+    <!-- ALARM ADDED -->
+<!-- Task list item -->
+<li class="task-item">
+  <input type="checkbox" id="task-1">
+  <label for="task-1" style="color: white;">Set Alarm</label>
+  <span class="alarm-icon"></span>
+  <input type="time" id="alarm-time" value="08:00">
+</li>
+
+<!-- Alarm modal -->
+<div id="alarm-modal">
+  <h2>Alarm!</h2>
+  <p>Task is due!</p>
+  <button id="dismiss-alarm" style="border-radius: 10px;">Dismiss</button>
+  <!-- Add audio element for alarm sound -->
+  <audio id="alarm-sound">
+    <source src=".css/Dream.mp3" type="audio/mp3">
+  </audio>
+</div>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

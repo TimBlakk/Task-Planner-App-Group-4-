@@ -131,3 +131,43 @@ function editTask(task) {
 
 
 
+
+
+// ALARM ADDED JAVASCRIPT
+
+// Get the task item and alarm time input
+const taskItem = document.querySelector('.task-item');
+const alarmTimeInput = document.querySelector('#alarm-time');
+
+// Set the alarm time
+const alarmTime = alarmTimeInput.value;
+
+// Store the alarm time in local storage
+localStorage.setItem('alarmTime', alarmTime);
+
+// Retrieve the alarm time from local storage
+const storedAlarmTime = localStorage.getItem('alarmTime');
+
+// Set the alarm time to the stored value if available
+if (storedAlarmTime) {
+  alarmTimeInput.value = storedAlarmTime;
+}
+
+// Get the audio element for alarm sound
+const alarmSound = document.querySelector('#alarm-sound');
+
+// Set the alarm
+setTimeout(() => {
+  // Show the alarm modal
+  document.querySelector('#alarm-modal').style.display = 'block';
+  // Play the alarm sound
+  alarmSound.play();
+}, alarmTime * 60 * 1000); // Convert time to milliseconds
+
+// Dismiss the alarm
+document.querySelector('#dismiss-alarm').addEventListener('click', () => {
+  document.querySelector('#alarm-modal').style.display = 'none';
+  // Pause the alarm sound
+  alarmSound.pause();
+});
+
