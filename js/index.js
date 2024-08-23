@@ -1,104 +1,196 @@
-// js/index.js
+let currentUser = "";
+
 const taskManager = new TaskManager();
 
-document.getElementById('taskForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("goToPlanner").addEventListener("click", () => {
+    const selectedUser = document.getElementById("userSelect").value;
+    currentUser = selectedUser;
+    loadUserPage();
+  });
 
-    const taskName = document.querySelector('#taskName').value;
-    const taskDescription = document.querySelector('#taskDescription').value;
-    const taskAssignedTo = document.querySelector('#taskAssignedTo').value;
-    const taskDueDate = document.querySelector('#taskDueDate').value;
-    const taskStatus = document.querySelector('#taskStatus').value;
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const selectedUser = event.target.getAttribute("data-user");
+      currentUser = selectedUser;
+      displayTasks();
+    });
+  });
 
-    const errorAlert = document.getElementById('errorAlert');
+  document
+    .getElementById("taskForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    if (taskName && taskDescription && taskAssignedTo && taskDueDate && taskStatus) {
-        errorAlert.classList.add('d-none');
-        taskManager.addTask(taskName, taskDescription, taskAssignedTo, taskDueDate, taskStatus);
-        displayTasks();
-        document.getElementById('taskForm').reset();
-    } else {
-        errorAlert.classList.remove('d-none');
-    }
-});
+      const taskName = document.querySelector("#taskName").value;
+      const taskDescription = document.querySelector("#taskDescription").value;
+      const taskAssignedTo = document.querySelector("#taskAssignedTo").value;
+      const taskDueDate = document.querySelector("#taskDueDate").value;
+      const taskStatus = document.querySelector("#taskStatus").value;
 
-document.getElementById('taskList').addEventListener('click', function(event) {
-    if (event.target.classList.contains('delete-button')) {
-        const taskId = Number(event.target.closest('.list-group-item').dataset.taskId);
-        taskManager.deleteTask(taskId);
-        displayTasks();
-    }
+      const errorAlert = document.getElementById("errorAlert");
 
-    if (event.target.classList.contains('edit-button')) {
-        const taskId = Number(event.target.closest('.list-group-item').dataset.taskId);
-        const task = taskManager.getTasks().find(task => task.id === taskId);
-        populateForm(task);
-        document.getElementById('saveTask').dataset.taskId = taskId;
-        document.getElementById('saveTask').classList.remove('d-none');
-        document.getElementById('addTask').classList.add('d-none');
-    }
-});
+      if (
+        !taskName ||
+        !taskDescription ||
+        !taskAssignedTo ||
+        !taskDueDate ||
+        !taskStatus
+      ) {
+        errorAlert.classList.remove("d-none");
+        return;
+      }
 
-document.getElementById('saveTask').addEventListener('click', function(event) {
-    const taskId = Number(event.target.dataset.taskId);
-    const taskName = document.querySelector('#taskName').value;
-    const taskDescription = document.querySelector('#taskDescription').value;
-    const taskAssignedTo = document.querySelector('#taskAssignedTo').value;
-    const taskDueDate = document.querySelector('#taskDueDate').value;
-    const taskStatus = document.querySelector('#taskStatus').value;
+      errorAlert.classList.add("d-none");
 
-    const updatedTask = {
-        name: taskName,
-        description: taskDescription,
-        assignedTo: taskAssignedTo,
-        dueDate: taskDueDate,
-        status: taskStatus
-    };
+      taskManager.addTask(
+        currentUser,
+        taskName,
+        taskDescription,
+        taskAssignedTo,
+        taskDueDate,
+        taskStatus
+      );
 
-    taskManager.updateTask(taskId, updatedTask);
+      document.getElementById("taskForm").reset();
+      displayTasks();
+    });
+
+  document
+    .getElementById("filterStatus")
+    .addEventListener("change", function () {
+      displayTasks();
+    });
+
+  document.getElementById("searchTasks").addEventListener("input", function () {
     displayTasks();
-    document.getElementById('taskForm').reset();
-    document.getElementById('saveTask').classList.add('d-none');
-    document.getElementById('addTask').classList.remove('d-none');
+  });
 });
 
-document.getElementById('filterStatus').addEventListener('change', function(event) {
-    const filterStatus = event.target.value;
-    displayTasks(filterStatus);
-});
+function loadUserPage() {
+  document.querySelector(".welcome-page").classList.add("d-none");
+  document.querySelector(".task-page").classList.remove("d-none");
+  displayTasks();
+}
 
-function displayTasks(filterStatus = '') {
-    const taskList = document.getElementById('taskList');
-    taskList.innerHTML = '';
-    let tasks = taskManager.getTasks();
-    if (filterStatus) {
-        tasks = taskManager.filterTasks(filterStatus);
-    }
-    tasks.forEach(task => {
-        const taskCard = document.createElement('li');
-        taskCard.classList.add('list-group-item');
-        taskCard.dataset.taskId = task.id;
-        taskCard.innerHTML = `
+function displayTasks() {
+  const filterStatus = document.getElementById("filterStatus").value;
+  const searchQuery = document
+    .getElementById("searchTasks")
+    .value.toLowerCase();
+  const todoTasks = document.getElementById("todoTasks");
+  const inProgressTasks = document.getElementById("inProgressTasks");
+  const doneTasks = document.getElementById("doneTasks");
+
+  todoTasks.innerHTML = "";
+  inProgressTasks.innerHTML = "";
+  doneTasks.innerHTML = "";
+
+  const tasks = taskManager.getTasks(currentUser, filterStatus);
+
+  const filteredTasks = tasks.filter((task) => {
+    return (
+      task.name.toLowerCase().includes(searchQuery) ||
+      task.description.toLowerCase().includes(searchQuery)
+    );
+  });
+
+  filteredTasks.forEach((task) => {
+    const taskElement = document.createElement("li");
+    taskElement.className = "list-group-item";
+    taskElement.innerHTML = `
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">${task.name}</h5>
                     <p class="card-text">${task.description}</p>
-                    <p class="card-text"><strong>Assigned To:</strong> ${task.assignedTo}</p>
-                    <p class="card-text"><strong>Due Date:</strong> ${task.dueDate}</p>
-                    <p class="card-text"><strong>Status:</strong> ${task.status}</p>
-                    <button class="btn btn-danger delete-button">Delete</button>
-                    <button class="btn btn-primary edit-button">Edit</button>
+                    <p class="card-text"><small class="text-muted">Assigned to: ${task.assignedTo}</small></p>
+                    <p class="card-text"><small class="text-muted">Due Date: ${task.dueDate}</small></p>
+                    <p class="card-text"><small class="text-muted">Status: ${task.status}</small></p>
+                    <button class="btn btn-danger btn-sm delete-task" data-task-id="${task.id}">Delete</button>
+                    <button class="btn btn-primary btn-sm edit-task" data-task-id="${task.id}">Edit</button>
                 </div>
             </div>
         `;
-        taskList.appendChild(taskCard);
-    });
+
+    if (task.status === "To Do") {
+      todoTasks.appendChild(taskElement);
+    } else if (task.status === "In Progress") {
+      inProgressTasks.appendChild(taskElement);
+    } else if (task.status === "Done") {
+      doneTasks.appendChild(taskElement);
+    }
+
+    taskElement
+      .querySelector(".delete-task")
+      .addEventListener("click", function () {
+        taskManager.deleteTask(currentUser, task.id);
+        displayTasks();
+      });
+
+    taskElement
+      .querySelector(".edit-task")
+      .addEventListener("click", function () {
+        editTask(task);
+      });
+  });
 }
 
-function populateForm(task) {
-    document.querySelector('#taskName').value = task.name;
-    document.querySelector('#taskDescription').value = task.description;
-    document.querySelector('#taskAssignedTo').value = task.assignedTo;
-    document.querySelector('#taskDueDate').value = task.dueDate;
-    document.querySelector('#taskStatus').value = task.status;
+function editTask(task) {
+  document.querySelector("#taskName").value = task.name;
+  document.querySelector("#taskDescription").value = task.description;
+  document.querySelector("#taskAssignedTo").value = task.assignedTo;
+  document.querySelector("#taskDueDate").value = task.dueDate;
+  document.querySelector("#taskStatus").value = task.status;
+
+  document.getElementById("addTask").classList.add("d-none");
+  document.getElementById("saveTask").classList.remove("d-none");
+
+  // Remove existing event listener to prevent multiple bindings
+  const saveButton = document.getElementById("saveTask");
+  saveButton.replaceWith(saveButton.cloneNode(true));
+
+  document.getElementById("saveTask").addEventListener("click", function () {
+    taskManager.updateTask(currentUser, task.id, {
+      name: document.querySelector("#taskName").value,
+      description: document.querySelector("#taskDescription").value,
+      assignedTo: document.querySelector("#taskAssignedTo").value,
+      dueDate: document.querySelector("#taskDueDate").value,
+      status: document.querySelector("#taskStatus").value,
+    });
+    displayTasks();
+    document.getElementById("taskForm").reset();
+    document.getElementById("addTask").classList.remove("d-none");
+    document.getElementById("saveTask").classList.add("d-none");
+  });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Other event listeners...
+
+  // Populate Assigned To dropdown
+  const taskAssignedToDropdown = document.getElementById("taskAssignedTo");
+  const userSelectOptions = document.querySelectorAll("#userSelect option");
+  userSelectOptions.forEach((option) => {
+    const value = option.value;
+    const text = option.textContent;
+    const newOption = document.createElement("option");
+    newOption.value = value;
+    newOption.textContent = text;
+    taskAssignedToDropdown.appendChild(newOption);
+  });
+
+  // Populate Assigned By dropdown
+  const taskAssignedByDropdown = document.getElementById("taskAssignedBy");
+  userSelectOptions.forEach((option) => {
+    const value = option.value;
+    const text = option.textContent;
+    const newOption = document.createElement("option");
+    newOption.value = value;
+    newOption.textContent = text;
+    taskAssignedByDropdown.appendChild(newOption);
+  });
+});
+
+// Inside the form submission event listener
+const taskAssignedTo = document.querySelector("#taskAssignedTo").value;
+const taskAssignedBy = document.querySelector("#taskAssignedBy").value;
