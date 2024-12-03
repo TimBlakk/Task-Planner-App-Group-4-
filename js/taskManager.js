@@ -1,39 +1,42 @@
-// js/taskManager.js
 class TaskManager {
-    constructor(currentId = 0) {
-        this.tasks = [];
-        this.currentId = currentId;
+    constructor() {
+        this.users = JSON.parse(localStorage.getItem('taskManagerUsers')) || {};
     }
 
-    addTask(name, description, assignedTo, dueDate, status = 'TODO') {
-        this.currentId++;
+    save() {
+        localStorage.setItem('taskManagerUsers', JSON.stringify(this.users));
+    }
+
+    addTask(user, name, description, assignedTo, dueDate, status) {
+        if (!this.users[user]) {
+            this.users[user] = [];
+        }
         const task = {
-            id: this.currentId,
+            id: Date.now(),
             name,
             description,
             assignedTo,
             dueDate,
-            status
+            status,
         };
-        this.tasks.push(task);
+        this.users[user].push(task);
+        this.save();
     }
 
-    deleteTask(taskId) {
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
+    getTasks(user, status = '') {
+        if (!this.users[user]) return [];
+        return this.users[user].filter(task => (status ? task.status === status : true));
     }
 
-    updateTask(taskId, updatedTask) {
-        const taskIndex = this.tasks.findIndex(task => task.id === taskId);
-        if (taskIndex > -1) {
-            this.tasks[taskIndex] = { ...this.tasks[taskIndex], ...updatedTask };
-        }
+    deleteTask(user, taskId) {
+        if (!this.users[user]) return;
+        this.users[user] = this.users[user].filter(task => task.id !== taskId);
+        this.save();
     }
 
-    filterTasks(filterStatus) {
-        return this.tasks.filter(task => task.status === filterStatus);
-    }
-
-    getTasks() {
-        return this.tasks;
+    updateTask(user, taskId, updatedTask) {
+        if (!this.users[user]) return;
+        this.users[user] = this.users[user].map(task => task.id === taskId ? { ...task, ...updatedTask } : task);
+        this.save();
     }
 }
